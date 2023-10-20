@@ -7,7 +7,7 @@ namespace APIListaContatos.Context
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<Pessoa>? Pessoas { get; set; }
-        public DbSet<Contato>? Contatos { get; set; }
+        public DbSet<Pessoa> Pessoas { get; set; }
+        public DbSet<Contato> Contatos { get; set; }
     }
 }

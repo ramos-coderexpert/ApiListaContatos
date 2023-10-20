@@ -1,23 +1,20 @@
-using APIListaContatos.Context;
-using APIListaContatos.Services;
-using Microsoft.EntityFrameworkCore;
+using APIListaContatos;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+var configuration = builder.Configuration;
+
 builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+builder.Services
+    .AddInfrastructure(configuration);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-string sqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(sqlConnection));
-
-builder.Services.AddScoped<IPessoaService, PessoasService>();
-builder.Services.AddScoped<IContatoService, ContatosService>();
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
 {
